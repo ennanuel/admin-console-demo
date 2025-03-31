@@ -109,7 +109,7 @@ function App() {
         <div className="max-w-[var(--max-width)] mx-auto h-16 flex items-center justify-between gap-4">
           <a href="#!" className="flex items-center gap-2">
             <IoLogoPolymer size={32} />
-            <span className="tracking-tight text-3xl font-bold">Logo</span>
+            <span className="tracking-tight text-2xl font-bold">Logo</span>
           </a>
           <button onClick={toggleShowApartmentModal} className="flex items-center justify-center bg-blue-600 h-10 px-6 rounded-md">
             <span className="font-semibold text-sm text-white">Add apartment / room</span>

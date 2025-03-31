@@ -72,7 +72,7 @@ export default function ApartmentDetailsModal({ show, closeModal, apartment }: P
     };
 
     const removeImage = (indexToRemove: number) => {
-        setImages(images.filter((image, index) => index !== indexToRemove));
+        setImages(images.filter((image, index) => image && index !== indexToRemove));
     };
 
     if(!apartment) return;

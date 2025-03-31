@@ -53,7 +53,7 @@ export default function AddApartmentModal({ show, closeModal }: { show: boolean;
     };
 
     const removeImage = (indexToRemove: number) => {
-        setImages(images.filter((image, index) => index !== indexToRemove));
+        setImages(images.filter((image, index) => image && index !== indexToRemove));
     }
 
     return (
