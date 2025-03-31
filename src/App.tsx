@@ -11,6 +11,7 @@ import APARTMENTS from "./assets/APARTMENTS.json";
 import AddApartmentModal from "./components/AddApartmentModal";
 import ConfirmDeleteModal from "./components/ConfirmDeleteModal";
 import ApartmentDetailsModal from "./components/ApartmentDetailsModal";
+import { IoLogoPolymer } from "react-icons/io";
 
 
 type Apartment = {
@@ -106,7 +107,10 @@ function App() {
       <AddApartmentModal closeModal={() => setShowAddApartmentModal(false)} show={showAddApartmentModal} />
       <header className="sticky top-0 z-10 px-10 bg-white border-b border-gray-200">
         <div className="max-w-[var(--max-width)] mx-auto h-16 flex items-center justify-between gap-4">
-          <a href="#!" className="font-bold text-3xl">LOGO</a>
+          <a href="#!" className="flex items-center gap-2">
+            <IoLogoPolymer size={32} />
+            <span className="tracking-tight text-3xl font-bold">Logo</span>
+          </a>
           <button onClick={toggleShowApartmentModal} className="flex items-center justify-center bg-blue-600 h-10 px-6 rounded-md">
             <span className="font-semibold text-sm text-white">Add apartment / room</span>
           </button>
