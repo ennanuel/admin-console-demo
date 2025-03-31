@@ -1,0 +1,11 @@
+
+@import "tailwindcss";
+
+
+:root {
+  --max-width: 2048px;
+}
+
+button {
+  cursor: pointer !important;
+}
