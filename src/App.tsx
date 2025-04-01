@@ -24,11 +24,10 @@ type Apartment = {
 const LIMIT = 20;
 
 function App() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const addApartmentRef = useRef<HTMLDialogElement>(null);
+  const removeApartmentRef = useRef<HTMLDialogElement>(null);
+  const apartmentDetailsRef = useRef<HTMLDialogElement>(null);
 
-  const [showAddApartmentModal, setShowAddApartmentModal] = useState(false);
-  const [showApartmentDetailsModal, setShowApartmentDetailsModal] = useState(false);
-  const [showRemoveApartmentModal, setShowRemoveApartmentModal] = useState(false);
   const [selectedApartments, setSelectedApartments] = useState(0);
 
   const [page, setPage] = useState(0);
@@ -44,40 +43,31 @@ function App() {
 
   const showApartment = (value: Apartment) => {
     setApartment(value);
-    setShowApartmentDetailsModal(true);
+    showModal(apartmentDetailsRef);
   }
 
   const hideApartment = () => {
     setApartment(null);
-    setShowApartmentDetailsModal(false)
+    hideModal(apartmentDetailsRef)
   }
 
-  const toggleShowApartmentModal = () => {
-    const newValue = !showAddApartmentModal;
+  const showModal = (modalRef: React.RefObject<HTMLDialogElement | null>) => {
+    modalRef.current?.show();
 
-    setShowAddApartmentModal(newValue);
+    const container = document.querySelector('#body');
 
-    if(!newValue) {
-      containerRef.current?.classList?.remove("overflow-auto");
-      containerRef.current?.classList?.add("overflow-hidden");
-    }
-    else {
-      containerRef.current?.classList?.add("overflow-auto");
-      containerRef.current?.classList?.remove("overflow-hidden");
-    }
+    container?.classList?.remove("overflow-auto");
+    container?.classList?.add("overflow-hidden");
   };
 
-  const displayRemoveApartmentModal = () => {
-    setShowRemoveApartmentModal(true);
-    containerRef.current?.classList?.remove("overflow-auto");
-    containerRef.current?.classList?.add("overflow-hidden");
+  const hideModal = (modalRef: React.RefObject<HTMLDialogElement | null>) => {
+    modalRef.current?.close();
+
+    const container = document.querySelector('#body');
+
+    container?.classList?.add("overflow-auto");
+    container?.classList?.remove("overflow-hidden");
   }
-
-  const hideRemoveApartmentModal = () => {
-    setShowRemoveApartmentModal(false);
-    containerRef.current?.classList?.add("overflow-auto");
-    containerRef.current?.classList?.remove("overflow-hidden");
-  };
 
   const selectAll: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     if(!event.target) return;
@@ -101,17 +91,17 @@ function App() {
   }
   
   return (
-    <div ref={containerRef} className="h-dvh overflow-auto bg-gray-100 text-gray-900 min-h-screen">
-      <ApartmentDetailsModal closeModal={hideApartment} show={showApartmentDetailsModal} apartment={apartment} />
-      <ConfirmDeleteModal closeModal={hideRemoveApartmentModal} show={showRemoveApartmentModal} />
-      <AddApartmentModal closeModal={() => setShowAddApartmentModal(false)} show={showAddApartmentModal} />
+    <div className="bg-gray-100 text-gray-900">
+      <ApartmentDetailsModal closeModal={hideApartment} modalRef={apartmentDetailsRef} apartment={apartment} />
+      <ConfirmDeleteModal closeModal={() => hideModal(removeApartmentRef)} modalRef={removeApartmentRef} />
+      <AddApartmentModal closeModal={() => hideModal(addApartmentRef)} modalRef={addApartmentRef} />
       <header className="sticky top-0 z-10 px-10 bg-white border-b border-gray-200">
         <div className="max-w-[var(--max-width)] mx-auto h-16 flex items-center justify-between gap-4">
           <a href="#!" className="flex items-center gap-2">
             <IoLogoPolymer size={32} />
             <span className="tracking-tight text-2xl font-bold">Logo</span>
           </a>
-          <button onClick={toggleShowApartmentModal} className="flex items-center justify-center bg-blue-600 h-10 px-6 rounded-md">
+          <button onClick={() => showModal(addApartmentRef)} className="flex items-center justify-center bg-blue-600 h-10 px-6 rounded-md">
             <span className="font-semibold text-sm text-white">Add apartment / room</span>
           </button>
         </div>
@@ -148,7 +138,7 @@ function App() {
             <div>
               {
                 Boolean(selectedApartments) ?
-                  <button onClick={displayRemoveApartmentModal} className="flex items-center justify-center gap-1 px-4 rounded-md h-10 bg-red-100 text-red-600 border border-red-100 hover:border-red-300">
+                  <button onClick={() => showModal(removeApartmentRef)} className="flex items-center justify-center gap-1 px-4 rounded-md h-10 bg-red-100 text-red-600 border border-red-100 hover:border-red-300">
                     <MdDelete size={18} />
                     <span className="font-semibold text-sm">Remove</span>
                   </button> :
