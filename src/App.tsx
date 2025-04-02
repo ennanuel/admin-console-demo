@@ -156,7 +156,7 @@ export default function App() {
               </div>
               <div className="relative">
                 <button onClick={() => setShowFilterOptions(!showFilterOptions)} className={`${showFilterOptions ? 'bg-gray-200' : ''} text-gray-600 h-10 rounded-md border border-transparent hover:border-gray-200 flex items-center justify-center px-3 gap-3 bg-gray-100 hover:bg-transparent`}>
-                  <span className="font-semibold text-sm">{filter === "sold" ? "Sold" : filter === "on_sale" ? "On sale" : "Filter"}</span>
+                  <span className="font-semibold text-sm whitespace-nowrap">{filter === "sold" ? "Sold" : filter === "on_sale" ? "On sale" : "Filter"}</span>
                   <FaAngleDown size={12} className={`${showFilterOptions ? 'rotate-180' : ''} transition-transform duration-300`} />
                 </button>
                 <div className={`${showFilterOptions ? '' : 'opacity-0 pointer-events-none'} transition-opacity duration-300 absolute top-full left-0 pt-1`}>
