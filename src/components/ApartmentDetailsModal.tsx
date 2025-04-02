@@ -28,6 +28,7 @@ type ApartmentValues = {
     name?: string;
     desc?: string;
     sale_status?: string;
+    price?: number;
     features?: string[];
     longitude?: number;
     latitude?: number;
@@ -114,6 +115,7 @@ type Apartment = {
     longitude: number;
     latitude: number;
     images: Image[];
+    price: number;
 }
 
 type FetchResult = {
@@ -141,6 +143,7 @@ function useGetApartmentDetails(apartmentId?: string): FetchResult {
                     longitude: 100.00,
                     latitude: 100.24,
                     features: ["Bigs coaster", "Thrift", "Beans"],
+                    price: 100,
                     images: [
                         { file_name: "wethin.png", file_size: "204.44 KB", src: image1 },
                         { file_name: "Another file.mpeg", file_size: "338.54 KB", src: image2 },
@@ -325,6 +328,11 @@ export default function ApartmentDetails({ containerRef, apartmentId, closeModal
                     <label htmlFor="desc" className="text-sm text-gray-400">Apartment description</label>
                     <textarea id="desc" name="desc" onChange={handleChange} data-next-field-id="sale_status" placeholder="Description" className={`${errors?.desc ? 'border-red-200 focus:outline-red-400 text-red-600 placeholder:text-red-400' : 'border-gray-200 text-gray-600'} mt-1 h-24 rounded-md px-4 py-2 border`} />
                     { errors?.desc ? <p className="text-xs text-red-500">{errors.desc}</p> : null }
+                </div>
+                <div className="flex flex-col gap-1">
+                    <label htmlFor="price" className="text-sm text-gray-400">Price per metre<sup>2</sup></label>
+                    <input type="number" step="0.01" id="price" name="price" onChange={handleChange} onKeyDown={handleKeyPress} data-next-field-id="desc" placeholder="1st Cherry Avenue" className={`${errors?.price ? 'border-red-200 focus:outline-red-400 text-red-600 placeholder:text-red-400' : 'border-gray-200 text-gray-600'} mt-1 h-12 rounded-md px-4 border`} />
+                    { errors?.price ? <p className="text-xs text-red-500">{errors.price}</p> : null }
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="sale_status" className="text-sm text-gray-400">Sale status</label>

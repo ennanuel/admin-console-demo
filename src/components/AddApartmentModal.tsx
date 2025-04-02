@@ -22,6 +22,7 @@ type Image = {
 type ApartmentValues = {
     name: string;
     desc: string;
+    price: number;
     sale_status: string;
     features: string[];
     longitude: number;
@@ -101,7 +102,7 @@ export default function AddApartmentModal({ containerRef, closeModal }: Props) {
     const [images, setImages] = useState<Image[]>([]);
     const [features, setFeatures] = useState<string[]>([]);
 
-    const values = useRef<ApartmentValues>({ name: '', desc: '', sale_status: '', features: [], longitude: 0, latitude: 0, images: [] });
+    const values = useRef<ApartmentValues>({ name: '', desc: '', sale_status: '', price: 0, features: [], longitude: 0, latitude: 0, images: [] });
 
     const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
         if(event.key === 'Enter' && event.target) {
@@ -222,6 +223,11 @@ export default function AddApartmentModal({ containerRef, closeModal }: Props) {
                     <label htmlFor="desc" className="text-sm text-gray-400">Apartment description</label>
                     <textarea id="desc" name="desc" onChange={handleChange} data-next-field-id="sale_status" placeholder="Description" className={`${errors?.desc ? 'border-red-200 focus:outline-red-400 text-red-600 placeholder:text-red-400' : 'border-gray-200 text-gray-600'} mt-1 h-24 rounded-md px-4 py-2 border`} />
                     { errors?.desc ? <p className="text-xs text-red-500">{errors.desc}</p> : null }
+                </div>
+                <div className="flex flex-col gap-1">
+                    <label htmlFor="price" className="text-sm text-gray-400">Price per metre<sup>2</sup></label>
+                    <input type="number" step="0.01" id="price" name="price" onChange={handleChange} onKeyDown={handleKeyPress} data-next-field-id="desc" placeholder="1st Cherry Avenue" className={`${errors?.price ? 'border-red-200 focus:outline-red-400 text-red-600 placeholder:text-red-400' : 'border-gray-200 text-gray-600'} mt-1 h-12 rounded-md px-4 border`} />
+                    { errors?.price ? <p className="text-xs text-red-500">{errors.price}</p> : null }
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="sale_status" className="text-sm text-gray-400">Sale status</label>
