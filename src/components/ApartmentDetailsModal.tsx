@@ -198,13 +198,14 @@ export default function ApartmentDetails({ containerRef, apartmentId, closeModal
     }
 
     const removeFeatures = (value: string, index: number) => {
-        if(!value || values.current.features?.length) return;
-        const newFeatures = values.current?.features?.filter((feature, i) => value !== feature || index !== i) || [];
+        if(!value) return;
+
         setFeatures(features?.filter((feature, i) => value !== feature || index !== i));
-
-        values.current.features = newFeatures;
-
         if(apartmentDetails?.features?.includes(value)) values.current.features_to_remove?.push(value);
+
+        if(!values?.current?.features?.length) return;
+        const newFeatures = values.current?.features?.filter((feature, i) => value !== feature || index !== i) || [];
+        values.current.features = newFeatures;
     }
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = async (event) => {
